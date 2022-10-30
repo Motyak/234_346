@@ -1,0 +1,3 @@
+./run.sh
+./run.sh 99999 | grep "300"
+./run.sh 99999 | less
