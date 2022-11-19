@@ -10,31 +10,22 @@ DEFAULT_MAX_RECURSION_DEPTH = 3
 debug=False
 
 def fn(a, b, maxRecursionDepth = DEFAULT_MAX_RECURSION_DEPTH, _recursionDepth = 0):
-    sum_ = sum(a)
-    if debug:
-        print("\n", "DEBUG", "sum_=", sum_)
-        
+    sum_ = sum(a)   
     remainder = b % sum_
-    if debug:
-        print("DEBUG", "remainder=", remainder)
-        
     if remainder != 0 and _recursionDepth < maxRecursionDepth:
         return fn(a, b * 10, maxRecursionDepth, _recursionDepth + 1)
-        
     quotient = b // sum_
-    if debug:
-        print("DEBUG", "quotient=", quotient)
-        
-    adjustedQuotient = quotient / 10 ** maxRecursionDepth
-    if debug:
-        print("DEBUG", "adjustedQuotient=", adjustedQuotient)
-
+    adjustedQuotient = quotient / 10 ** (0 if remainder == 0 else maxRecursionDepth)
     return [a[0] * adjustedQuotient, a[1] * adjustedQuotient, a[2] * adjustedQuotient]
 
 def process(a, b):
     out = io.StringIO()
     for precision in range(0, 9 +1):
-        print(precision, " -- ", *[f"{i:.{precision}f}" for i in fn(a, b, precision)], file=out)
+        print(precision,
+              " -- ", 
+              *[f"{i:.{precision}f}" for i in fn(a, b, precision)],
+              file=out
+        )
     return out.getvalue()[:-1] # get rid of the last '\n' added by print
 
 
