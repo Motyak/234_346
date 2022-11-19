@@ -34,7 +34,7 @@ def fn(a, b, maxRecursionDepth = DEFAULT_MAX_RECURSION_DEPTH, _recursionDepth = 
 def process(a, b):
     out = io.StringIO()
     for precision in range(0, 9 +1):
-        print(precision, " -- ", *fn(a, b, precision), file=out)
+        print(precision, " -- ", *[f"{i:.{precision}f}" for i in fn(a, b, precision)], file=out)
     return out.getvalue()[:-1] # get rid of the last '\n' added by print
 
 
